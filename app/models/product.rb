@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
 
   has_many :orders
+  has_many :product_categories
 
   validates :name, uniqueness: true, length: { in: 1...100 }
   validates :price, presence: true, numericality: { greater_than: 0 }
