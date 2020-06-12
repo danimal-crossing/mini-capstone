@@ -2,6 +2,11 @@ class Product < ApplicationRecord
 
   has_many :orders
   has_many :product_categories
+  has_many :categories, through: :product_categories
+
+  # def categories
+  #   product_categories.map { |product_category| product_category.category }
+  # end
 
   validates :name, uniqueness: true, length: { in: 1...100 }
   validates :price, presence: true, numericality: { greater_than: 0 }
