@@ -4,18 +4,16 @@ class Api::ProductsController < ApplicationController
 
   def index
     @products = Product.all
+    if params[:category]
+      category = Category.find_by(name: params[:category])
+      @products = category.products
+    end
     if params[:search]
       @products = @products.where("name iLIKE ?", "%#{params[:search]}%")
     end
     if params[:discount]
       @products = @products.where("price < ?", 10)
     end
-
-    if params[:category]
-      category = Category.find_by(name: params[:category])
-      @products = category.products
-    end
-
     if params[:sort] == "price"
       if params[:sort_order] == "asc"
         @products = @products.order(:price)
